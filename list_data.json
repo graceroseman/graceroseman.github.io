@@ -1,22 +1,22 @@
 {
-	"movies": [
+	"employment": [
 		{
-			"Title": "Lost In Translation",
-			"Director": "Sofia Coppola",
-			"Rating": "R",
-			"Year": "2003"
+			"Job": "Graduate Student Instructor",
+			"Company": "University of California, Berkeley",
+			"Location": "Berkeley, CA",
+			"Employment Dates": "Aug 2022 - Present"
 		},
 		{
-			"Title": "Casino Royale",
-			"Director": "Martin Campbell",
-			"Rating": "PG-13",
-			"Year": "2006"
+			"Job": "Project Manager",
+			"Company": "Shoob Photography",
+			"Location": "Modesto, CA",
+			"Employment Dates": "Aug 2021 - Aug 2022"
 		},
 		{
-			"Title": "The Dark Knight",
-			"Director": "Christopher Nolan",
-			"Rating": "PG-13",
-			"Year": "2008"
+			"Job": "Investigation Admin Intern",
+			"Company": "Tristar Investigation",
+			"Location": "Los Angeles, CA",
+			"Employment Dates": "Apr 2021 - Sep 2021"
 		}
 	]
 }
