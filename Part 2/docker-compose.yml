@@ -1,0 +1,12 @@
+version: '3'
+services:
+  flask1:
+    build: ./chatbot_parser
+    container_name: "Server_1"
+    ports:
+      - "5050:5050"
+  flask2:
+    build: ./shrug_command
+    container_name: "Server_2"
+    ports:
+      - "5051:5050"
