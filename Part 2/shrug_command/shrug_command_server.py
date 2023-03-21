@@ -2,33 +2,6 @@
 from flask import Flask, request, Response, jsonify
 import json
 
-# # Create a Flask application object
-# app = Flask(__name__)
-
-# @app.route("/execute", methods=["POST"])
-# def command():
-#     """
-#     when command is "shrug", add a shrug emoji to end of message
-#     """
-#     input = request.get_json() #get json data 
-#     message = input["data"]["message"] # extract message
-#     message = message.strip() #delete whitespaces
-#     command = input["data"]["command"] # extract command
-#     command = command.strip() #delete whitespaces
-#     if command == "shrug":
-#         new_message = message + "¯\_(ツ)_/¯" # add shrug emoji to end of message
-#         output = jsonify({"data": {"command": command, "message": new_message}}) #output data in json format
-
-#     return output
-
-# # Run the application
-# if __name__ == "__main__":
-#     app.run(debug=True, host='0.0.0.0', port=5050)
-
-# Imports
-from flask import Flask, jsonify, request
-import json
-
 # Initiating Flask App
 app = Flask(__name__)
 
