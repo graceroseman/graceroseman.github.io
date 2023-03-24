@@ -44,7 +44,7 @@ services:
     build: ./shrug_command
     container_name: "Server_2"
     ports:
-      - "5051:5050"
+      - "5051:5051"
 
   email-service:
     build: ./email_command
@@ -52,7 +52,7 @@ services:
       - ./worker/worker.py:/app/worker.py
     image: email-service-image
     ports:
-      - "5052:5050"
+      - "5052:5052"
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - SENDGRID_FROM_EMAIL=grace_roseman@berkeley.edu
