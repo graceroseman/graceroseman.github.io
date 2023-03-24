@@ -1,5 +1,4 @@
 CREATE TABLE IF NOT EXISTS commands (
-    id SERIAL PRIMARY KEY,
-    command VARCHAR(20),
+    command VARCHAR(20) PRIMARY KEY,
     server_url VARCHAR(200)
 );
