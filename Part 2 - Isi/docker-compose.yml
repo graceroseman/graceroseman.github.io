@@ -18,7 +18,7 @@ services:
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - SENDGRID_FROM_EMAIL=grace_roseman@berkeley.edu
-      - SENDGRID_API_KEY = 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
+      - SENDGRID_API_KEY = ***
       - CELERY_RESULT_BACKEND=db+postgresql://postgres:postgres@db:5432/chatbot
     volumes:
       - ./worker/worker.py:/app/worker.py
@@ -56,7 +56,7 @@ services:
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - SENDGRID_FROM_EMAIL=grace_roseman@berkeley.edu
-      - SENDGRID_API_KEY= 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
+      - SENDGRID_API_KEY= ***
       - CELERY_RESULT_BACKEND=db+postgresql://postgres:postgres@db:5432/chatbot
     depends_on:
       - db
