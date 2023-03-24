@@ -14,13 +14,11 @@ db = SQLAlchemy(app)
 
 # Define a `Commands` model, which will map to a `commands` table in the database.
 class Commands(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    command = db.Column(db.String(20))
+    command = db.Column(db.String(20), primary_key=True)
     server_url = db.Column(db.String(200))
 
     def to_dict(self):
         return {
-            'id': self.id,
             'command': self.command,
             'server_url': self.server_url,
         }
@@ -43,15 +41,19 @@ def writeToFile(quotesData):
 # Else, returns normal message from Assignment 1
 def handleByCommand(message, command):
     serverList = Commands.query.filter_by(command=command).first()
-    final_url = serverList.server_url
     print(serverList, flush=True)
-    if not serverList:
+    if serverList is None:
         return createReturnMessage(message, command)
-    if final_url[command][-1] != "/":
-        urlPath = final_url["server_url"] + "/execute"
-    else:
-        urlPath = final_url["server_url"] + "execute"
-    jsonBody = {"data": {"command": command, "message": message}}
+    if serverList:
+        final_url = serverList.server_url
+        print(final_url, flush=True)
+        if final_url[command][-1] != "/":
+            urlPath = final_url["server_url"] + "/execute"
+            print(urlPath, flush=True)
+        else:
+            urlPath = final_url["server_url"] + "execute"
+            print(urlPath, flush=True)
+        jsonBody = {"data": {"command": command, "message": message}}
     return requests.post(urlPath, json=jsonBody).json()
 
     # return requests.post(urlPath, json=jsonBody).json()
