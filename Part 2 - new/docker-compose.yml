@@ -1,0 +1,79 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: chatbot
+    container_name: "postgres_container"
+    volumes:
+      - ./init.db.sql:/docker-entrypoint-initdb.d/init.db.sql
+    ports:
+      - 5432:5432
+
+  worker:
+    build: ./worker
+    container_name: "worker_container"
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - SENDGRID_FROM_EMAIL=grace_roseman@berkeley.edu
+      - SENDGRID_API_KEY = **
+      - CELERY_RESULT_BACKEND=db+postgresql://postgres:postgres@db:5432/chatbot
+    volumes:
+      - ./worker/worker.py:/app/worker.py
+    depends_on:
+      - redis
+      - db
+
+  redis:
+    image: redis
+    container_name: "redis_container"
+    ports:
+      - "6379:6379"
+
+  flask1:
+    build: ./chatbot_parser
+    container_name: "server1"
+    ports:
+      - "5050:5050"
+    depends_on:
+      - db
+
+  flask2:
+    build: ./shrug_command
+    container_name: "server2"
+    ports:
+      - "5051:5050"
+      #- "5051:5051"
+
+  email-service:
+    build: ./email_command
+    volumes:
+      - ./worker/worker.py:/app/worker.py
+    image: email-service-image
+    ports:
+      - "5052:5050"
+      #- "5052:5052"
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - SENDGRID_FROM_EMAIL=grace_roseman@berkeley.edu
+      - SENDGRID_API_KEY= **
+      - CELERY_RESULT_BACKEND=db+postgresql://postgres:postgres@db:5432/chatbot
+    depends_on:
+      - db
+      - redis
+      - worker
+      - flask1
+      - flask2
+
+  job_viewer:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379
+      - FLOWER_PORT=8888
+    ports:
+      - 8888:8888
+    depends_on:
+      - redis
+      
