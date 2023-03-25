@@ -1,2 +1,0 @@
-flask
-sendgrid==6.9.7
